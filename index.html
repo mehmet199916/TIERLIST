@@ -7,51 +7,52 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #ADD8E6; /* Light Blue */
+            background: linear-gradient(to bottom, #A1C4FD, #C2E9FB); /* Light blue gradient */
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             flex-direction: column;
+            padding: 20px;
         }
         .tierlist-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 100%;
+            width: 90%;
             max-width: 1200px;
-            padding: 20px;
         }
         .tier {
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            margin: 20px 0;
+            margin: 15px 0;
             width: 100%;
             max-width: 1000px;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            background-color: #ffffff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+        .tier:hover {
+            transform: scale(1.02);
         }
         .tier h2 {
-            background-color: #000000; /* Schwarze Box */
-            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 12px;
-            margin: 0;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
+            border-radius: 12px;
             flex-shrink: 0;
-            width: 120px;
+            width: 100px;
             text-align: center;
             font-size: 18px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
         .tier h2 img {
-            width: 50px; /* Adjust image size */
+            width: 60px;
             height: auto;
-            margin-right: 10px;
         }
         .tier ul {
             list-style-type: none;
@@ -59,25 +60,36 @@
             padding: 0;
             margin: 0;
             flex-wrap: wrap;
+            flex-grow: 1;
+            justify-content: center;
         }
         .tier li {
-            background-color: #e0f7fa; /* Light cyan */
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
             margin: 8px;
-            padding: 12px;
-            border-radius: 8px;
-            width: 120px;
+            padding: 14px;
+            border-radius: 10px;
+            width: 140px;
             text-align: center;
-            font-size: 16px;
+            font-size: 18px;
+            font-weight: bold;
             transition: all 0.3s ease;
+            border: 2px solid rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .tier li:hover {
-            background-color: #80deea; /* Light blue */
-            transform: translateY(-5px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
-        .tier li:active {
-            transform: translateY(2px);
-        }
+
+        /* Tier colors */
+        #tier-s { background: linear-gradient(45deg, #FFD700, #FFAA00); } /* Gold */
+        #tier-a { background: linear-gradient(45deg, #4169E1, #1E3A8A); } /* Royal Blue */
+        #tier-b { background: linear-gradient(45deg, #FF8C00, #FF4500); } /* Orange */
+        #tier-c { background: linear-gradient(45deg, #FFA07A, #FF6347); } /* Light Red */
+        #tier-d { background: linear-gradient(45deg, #B22222, #8B0000); } /* Darker Red */
+
     </style>
 </head>
 <body>
@@ -90,7 +102,6 @@
                 <li>Example Comp 1</li>
                 <li>Example Comp 2</li>
                 <li>Example Comp 3</li>
-                <!-- Add your content here -->
             </ul>
         </div>
 
@@ -101,7 +112,6 @@
                 <li>Example Comp 4</li>
                 <li>Example Comp 5</li>
                 <li>Example Comp 6</li>
-                <!-- Add your content here -->
             </ul>
         </div>
 
@@ -112,10 +122,9 @@
                 <li>Example Comp 7</li>
                 <li>Example Comp 8</li>
                 <li>Example Comp 9</li>
-                <!-- Add your content here -->
             </ul>
         </div>
-
+        
         <!-- Tier C -->
         <div class="tier" id="tier-c">
             <h2><img src="images/c.png" alt="C Tier"></h2>
@@ -123,7 +132,6 @@
                 <li>Example Comp 10</li>
                 <li>Example Comp 11</li>
                 <li>Example Comp 12</li>
-                <!-- Add your content here -->
             </ul>
         </div>
 
@@ -134,10 +142,9 @@
                 <li>Example Comp 13</li>
                 <li>Example Comp 14</li>
                 <li>Example Comp 15</li>
-                <!-- Add your content here -->
             </ul>
         </div>
     </div>
 
 </body>
-</html>
+</html>  
