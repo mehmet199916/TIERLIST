@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tierlist</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ADD8E6; /* Light Blue */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        .tierlist-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+        }
+        .tier {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 20px 0;
+            width: 100%;
+            max-width: 1000px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .tier h2 {
+            background-color: #000000; /* Schwarze Box */
+            color: white;
+            padding: 12px;
+            margin: 0;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            flex-shrink: 0;
+            width: 120px;
+            text-align: center;
+            font-size: 18px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .tier h2 img {
+            width: 50px; /* Adjust image size */
+            height: auto;
+            margin-right: 10px;
+        }
+        .tier ul {
+            list-style-type: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+            flex-wrap: wrap;
+        }
+        .tier li {
+            background-color: #e0f7fa; /* Light cyan */
+            margin: 8px;
+            padding: 12px;
+            border-radius: 8px;
+            width: 120px;
+            text-align: center;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        .tier li:hover {
+            background-color: #80deea; /* Light blue */
+            transform: translateY(-5px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .tier li:active {
+            transform: translateY(2px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tierlist-container">
+        <!-- Tier S -->
+        <div class="tier" id="tier-s">
+            <h2><img src="images/s.png" alt="S Tier"></h2>
+            <ul>
+                <li>Example Comp 1</li>
+                <li>Example Comp 2</li>
+                <li>Example Comp 3</li>
+                <!-- Add your content here -->
+            </ul>
+        </div>
+
+        <!-- Tier A -->
+        <div class="tier" id="tier-a">
+            <h2><img src="images/a.png" alt="A Tier"></h2>
+            <ul>
+                <li>Example Comp 4</li>
+                <li>Example Comp 5</li>
+                <li>Example Comp 6</li>
+                <!-- Add your content here -->
+            </ul>
+        </div>
+
+        <!-- Tier B -->
+        <div class="tier" id="tier-b">
+            <h2><img src="images/b.png" alt="B Tier"></h2>
+            <ul>
+                <li>Example Comp 7</li>
+                <li>Example Comp 8</li>
+                <li>Example Comp 9</li>
+                <!-- Add your content here -->
+            </ul>
+        </div>
+
+        <!-- Tier C -->
+        <div class="tier" id="tier-c">
+            <h2><img src="images/c.png" alt="C Tier"></h2>
+            <ul>
+                <li>Example Comp 10</li>
+                <li>Example Comp 11</li>
+                <li>Example Comp 12</li>
+                <!-- Add your content here -->
+            </ul>
+        </div>
+
+        <!-- Tier D -->
+        <div class="tier" id="tier-d">
+            <h2><img src="images/d.png" alt="D Tier"></h2>
+            <ul>
+                <li>Example Comp 13</li>
+                <li>Example Comp 14</li>
+                <li>Example Comp 15</li>
+                <!-- Add your content here -->
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
