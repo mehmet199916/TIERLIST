@@ -7,89 +7,124 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(to bottom, #A1C4FD, #C2E9FB); /* Light blue gradient */
+            background-color: #ADD8E6; /* Light Blue */
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
             margin: 0;
             flex-direction: column;
-            padding: 20px;
         }
+
         .tierlist-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 90%;
+            width: 100%;
             max-width: 1200px;
+            padding: 20px;
         }
+
         .tier {
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            margin: 15px 0;
+            margin: 10px 0; /* Verkleinerter Abstand zwischen den Tiers */
             width: 100%;
             max-width: 1000px;
-            border-radius: 15px;
-            padding: 15px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease-in-out;
+            border: 5px solid black; /* Increased border thickness */
+            border-radius: 10px;
+            background: linear-gradient(45deg, rgba(255, 204, 0, 0.7), rgba(255, 69, 0, 0.7)); /* Gradient background */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 10px;
         }
-        .tier:hover {
-            transform: scale(1.02);
+
+        /* Gradient backgrounds for each tier */
+        #tier-s {
+            background: linear-gradient(45deg, #FFD700, #FF8C00); /* Gold to Dark Orange */
         }
+        #tier-a {
+            background: linear-gradient(45deg, #4169E1, #1E90FF); /* Royal Blue to Dodger Blue */
+        }
+        #tier-b {
+            background: linear-gradient(45deg, #FFA500, #FF6347); /* Orange to Tomato */
+        }
+        #tier-c {
+            background: linear-gradient(45deg, #F08080, #FF4500); /* Light Coral to Orange Red */
+        }
+        #tier-d {
+            background: linear-gradient(45deg, #8B0000, #DC143C); /* Dark Red to Crimson */
+        }
+
         .tier h2 {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 12px;
-            border-radius: 12px;
+            background-color: #000000; /* Black Box */
+            color: white;
+            padding: 15px; /* Slightly bigger padding for a better look */
+            margin: 0;
+            border-radius: 10px;
             flex-shrink: 0;
-            width: 100px;
+            width: 140px;
             text-align: center;
-            font-size: 18px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            font-size: 20px; /* Slightly larger font for better readability */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+            transition: all 0.3s ease;
         }
+
+        .tier h2:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25); /* Darker shadow on hover */
+            transform: scale(1.05); /* Subtle scale effect */
+        }
+
         .tier h2 img {
-            width: 60px;
+            width: 50px;
             height: auto;
+            margin-right: 10px;
         }
+
         .tier ul {
             list-style-type: none;
             display: flex;
             padding: 0;
             margin: 0;
             flex-wrap: wrap;
-            flex-grow: 1;
-            justify-content: center;
+            gap: 16px; /* Increased the gap between the hexagons */
+            margin-left: 20px; /* Shift the hexagons to the right */
         }
+
         .tier li {
-            background: rgba(255, 255, 255, 0.9);
-            color: #333;
-            margin: 8px;
-            padding: 14px;
-            border-radius: 10px;
-            width: 140px;
-            text-align: center;
-            font-size: 18px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            border: 2px solid rgba(0, 0, 0, 0.2);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80px; /* Adjust hexagon size */
+            height: 90px;
+            position: relative;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            background-color: gray; /* Placeholder color */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 3px solid black; /* Black border around hexagon (thicker) */
+            border-radius: 5px;
         }
+
         .tier li:hover {
-            transform: scale(1.1);
-            background: rgba(255, 255, 255, 1);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            transform: scale(1.1); /* Slight scale on hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Shadow effect on hover */
         }
 
-        /* Tier colors */
-        #tier-s { background: linear-gradient(45deg, #FFD700, #FFAA00); } /* Gold */
-        #tier-a { background: linear-gradient(45deg, #4169E1, #1E3A8A); } /* Royal Blue */
-        #tier-b { background: linear-gradient(45deg, #FF8C00, #FF4500); } /* Orange */
-        #tier-c { background: linear-gradient(45deg, #FFA07A, #FF6347); } /* Light Red */
-        #tier-d { background: linear-gradient(45deg, #B22222, #8B0000); } /* Darker Red */
+        .tier li img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
+        .hexagon-text {
+            position: absolute;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Text shadow for readability */
+            z-index: 1;
+        }
     </style>
 </head>
 <body>
@@ -99,9 +134,18 @@
         <div class="tier" id="tier-s">
             <h2><img src="images/s.png" alt="S Tier"></h2>
             <ul>
-                <li>Example Comp 1</li>
-                <li>Example Comp 2</li>
-                <li>Example Comp 3</li>
+                <li>
+                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Alistar.png" alt="Champion">
+                    <span class="hexagon-text">Alistar</span> <!-- Name of the champion inside the hexagon -->
+                </li>
+                <li>
+                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example.png" alt="Champion">
+                    <span class="hexagon-text">Example</span> <!-- Name of the champion inside the hexagon -->
+                </li>
+                <li>
+                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example2.png" alt="Champion">
+                    <span class="hexagon-text">Example2</span> <!-- Name of the champion inside the hexagon -->
+                </li>
             </ul>
         </div>
 
@@ -109,9 +153,18 @@
         <div class="tier" id="tier-a">
             <h2><img src="images/a.png" alt="A Tier"></h2>
             <ul>
-                <li>Example Comp 4</li>
-                <li>Example Comp 5</li>
-                <li>Example Comp 6</li>
+                <li>
+                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example3.png" alt="Champion">
+                    <span class="hexagon-text">Example3</span> <!-- Name of the champion inside the hexagon -->
+                </li>
+                <li>
+                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example4.png" alt="Champion">
+                    <span class="hexagon-text">Example4</span> <!-- Name of the champion inside the hexagon -->
+                </li>
+                <li>
+                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example5.png" alt="Champion">
+                    <span class="hexagon-text">Example5</span> <!-- Name of the champion inside the hexagon -->
+                </li>
             </ul>
         </div>
 
@@ -119,19 +172,37 @@
         <div class="tier" id="tier-b">
             <h2><img src="images/b.png" alt="B Tier"></h2>
             <ul>
-                <li>Example Comp 7</li>
-                <li>Example Comp 8</li>
-                <li>Example Comp 9</li>
+                <li>
+                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example6.png" alt="Champion">
+                    <span class="hexagon-text">Example6</span> <!-- Name of the champion inside the hexagon -->
+                </li>
+                <li>
+                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example7.png" alt="Champion">
+                    <span class="hexagon-text">Example7</span> <!-- Name of the champion inside the hexagon -->
+                </li>
+                <li>
+                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example8.png" alt="Champion">
+                    <span class="hexagon-text">Example8</span> <!-- Name of the champion inside the hexagon -->
+                </li>
             </ul>
         </div>
-        
+
         <!-- Tier C -->
         <div class="tier" id="tier-c">
             <h2><img src="images/c.png" alt="C Tier"></h2>
             <ul>
-                <li>Example Comp 10</li>
-                <li>Example Comp 11</li>
-                <li>Example Comp 12</li>
+                <li>
+                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example9.png" alt="Champion">
+                    <span class="hexagon-text">Example9</span> <!-- Name of the champion inside the hexagon -->
+                </li>
+                <li>
+                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example10.png" alt="Champion">
+                    <span class="hexagon-text">Example10</span> <!-- Name of the champion inside the hexagon -->
+                </li>
+                <li>
+                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example11.png" alt="Champion">
+                    <span class="hexagon-text">Example11</span> <!-- Name of the champion inside the hexagon -->
+                </li>
             </ul>
         </div>
 
@@ -139,12 +210,21 @@
         <div class="tier" id="tier-d">
             <h2><img src="images/d.png" alt="D Tier"></h2>
             <ul>
-                <li>Example Comp 13</li>
-                <li>Example Comp 14</li>
-                <li>Example Comp 15</li>
+                <li>
+                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example12.png" alt="Champion">
+                    <span class="hexagon-text">Example12</span> <!-- Name of the champion inside the hexagon -->
+                </li>
+                <li>
+                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example13.png" alt="Champion">
+                    <span class="hexagon-text">Example13</span> <!-- Name of the champion inside the hexagon -->
+                </li>
+                <li>
+                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example14.png" alt="Champion">
+                    <span class="hexagon-text">Example14</span> <!-- Name of the champion inside the hexagon -->
+                </li>
             </ul>
         </div>
     </div>
 
 </body>
-</html>  
+</html>
