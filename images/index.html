@@ -3,93 +3,148 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tierlist</title>
+  <title>TFT Tier List</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* CSS Variables for easy theme adjustments */
     :root {
-      --body-bg: #ADD8E6;
-      --tier-border: 5px solid black;
-      --tier-border-radius: 10px;
-      --tier-header-bg: #000;
-      --tier-header-color: yellow;
-      --tier-header-size: 60px;
-      --tier-header-font-size: 24px;
+      --body-bg: #1a1a2e;
+      --tier-border-radius: 15px;
+      --tier-header-size: 80px;
+      --tier-header-font-size: 32px;
+      --hexagon-size: 100px;
     }
 
-    /* Remove scrolling if needed */
     html, body {
-      overflow: hidden;
+      overflow: auto;
       width: 100%;
       height: 100%;
       margin: 0;
       padding: 0;
+      background: var(--body-bg);
     }
 
     body {
-      font-family: 'Arial', sans-serif;
-      background-color: var(--body-bg);
+      font-family: 'Roboto', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       flex-direction: column;
+      background: radial-gradient(circle at center, #2a2356 0%, #1a1a2e 100%);
     }
 
     .tierlist-container {
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 100%;
-      max-width: 1200px;
-      padding: 20px;
-      gap: 20px;
+      width: 90%;
+      max-width: 1400px;
+      padding: 40px 20px;
+      gap: 40px;
     }
 
-    /* Search Field Styling */
     .search-container {
       width: 100%;
       display: flex;
       justify-content: center;
+      margin-bottom: 10px;
     }
-    
+
     .search-container input {
-      width: 300px;
-      padding: 10px;
-      font-size: 16px;
-      border: 2px solid #333;
-      border-radius: 5px;
+      width: 100%;
+      max-width: 100%;
+      padding: 15px 25px;
+      font-size: 18px;
+      border: 2px solid #000000;
+      border-radius: 50px;
+      background: rgba(0, 0, 0, 0.5);
+      color: #FFF;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    .search-container input:focus {
+      outline: none;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.7);
     }
 
     .tier {
       display: flex;
       align-items: center;
       width: 100%;
-      max-width: 1000px;
-      border: var(--tier-border);
+      border: 3px solid rgba(var(--tier-color-r), var(--tier-color-g), var(--tier-color-b), 0.6);
       border-radius: var(--tier-border-radius);
-      padding: 10px;
-      /* Default gradient background; individual tiers override this below */
-      background: linear-gradient(135deg, #ffffff, #f5f5f5);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tier::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg,
+        transparent 45%,
+        rgba(var(--tier-color-r), var(--tier-color-g), var(--tier-color-b), 0.2) 50%,
+        transparent 55%
+      );
+      animation: shine 4s infinite;
+    }
+
+    @keyframes shine {
+      0% { transform: rotate(45deg) translateX(-150%); }
+      100% { transform: rotate(45deg) translateX(150%); }
     }
 
     .tier:hover {
-      transform: scale(1.01);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
     }
 
-    /* Individual tier gradient backgrounds */
-    #tier-s { background: linear-gradient(45deg, #FFD700, #FF8C00); }
-    #tier-a { background: linear-gradient(45deg, #4169E1, #1E90FF); }
-    #tier-b { background: linear-gradient(45deg, #FFA500, #FF6347); }
-    #tier-c { background: linear-gradient(45deg, #F08080, #FF4500); }
-    #tier-d { background: linear-gradient(45deg, #8B0000, #DC143C); }
+    /* Tier-specific styles */
+    #tier-s {
+      --tier-color: #FFD700;
+      --tier-color-r: 255;
+      --tier-color-g: 215;
+      --tier-color-b: 0;
+    }
+    #tier-a {
+      --tier-color: #4169E1;
+      --tier-color-r: 65;
+      --tier-color-g: 105;
+      --tier-color-b: 225;
+    }
+    #tier-b {
+      --tier-color: #FFA500;
+      --tier-color-r: 255;
+      --tier-color-g: 165;
+      --tier-color-b: 0;
+    }
+    #tier-c {
+      --tier-color: #CD5C5C;
+      --tier-color-r: 205;
+      --tier-color-g: 92;
+      --tier-color-b: 92;
+    }
+    #tier-d {
+      --tier-color: #8B0000;
+      --tier-color-r: 139;
+      --tier-color-g: 0;
+      --tier-color-b: 0;
+    }
 
-    /* Tier Header Styling */
     .tier-header {
-      background: var(--tier-header-bg);
-      color: var(--tier-header-color);
+      background: var(--tier-color);
+      color: white;
       font-size: var(--tier-header-font-size);
       font-weight: bold;
       width: var(--tier-header-size);
@@ -98,49 +153,65 @@
       align-items: center;
       justify-content: center;
       border-radius: var(--tier-border-radius);
-      margin-right: 15px;
-      text-shadow: 0 0 8px var(--tier-header-color);
-      transition: transform 0.3s ease;
+      margin-right: 30px;
+      text-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 2;
+      transition: all 0.3s ease;
     }
 
     .tier-header:hover {
-      transform: scale(1.05);
+      transform: scale(1.1);
+      text-shadow: 0 0 25px rgba(0, 0, 0, 0.9);
     }
 
     .tier ul {
       list-style: none;
       display: flex;
       flex-wrap: wrap;
-      gap: 16px;
-      margin-left: 20px;
+      gap: 25px;
+      margin: 0;
       padding: 0;
+      position: relative;
+      z-index: 2;
     }
 
     .tier li {
-      width: 80px;
-      height: 90px;
+      width: var(--hexagon-size);
+      height: calc(var(--hexagon-size) * 1.1547);
       position: relative;
       clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      border: none; /* Removed black border from hexagon */
-      border-radius: 5px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;\n    }
-    
-    .tier li:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      background: rgba(var(--tier-color-r), var(--tier-color-g), var(--tier-color-b), 0.1);
+      box-shadow: 0 0 5px rgba(var(--tier-color-r), var(--tier-color-g), var(--tier-color-b), 0.5);
+      transition: all 0.3s ease;
+      cursor: pointer;
     }
-    
+
+    .tier li:hover {
+      transform: scale(1.15) rotate(5deg);
+      box-shadow: 0 0 15px rgba(var(--tier-color-r), var(--tier-color-g), var(--tier-color-b), 1);
+      filter: brightness(1.2);
+      z-index: 3;
+    }
+
     .tier li img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      position: relative;
+      z-index: 0;
+      transition: transform 0.3s ease;
     }
-    
-    /* Pseudo-element for champion name (white text on a semi-transparent black background) */
+
+    .tier li:hover img {
+      transform: scale(1.1);
+    }
+
     .tier li::after {
       content: attr(data-name);
       position: absolute;
@@ -148,28 +219,59 @@
       left: 50%;
       transform: translateX(-50%);
       color: white;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: bold;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 2px 5px;
-      border-radius: 5px;
+      background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.6));
+      padding: 5px 15px;
+      border-radius: 10px;
+      border: 2px solid rgba(var(--tier-color-r), var(--tier-color-g), var(--tier-color-b), 1);
       white-space: nowrap;
-      text-shadow: 1px 1px 2px black;
+      text-shadow: 2px 2px 4px black;
+      backdrop-filter: blur(2px);
+      z-index: 2;
+      transition: font-size 0.3s ease;
     }
-    
-    /* Highlighting styles for search functionality */
+
+    .tier li:not(.dim):hover::after {
+      font-size: 16px;
+    }
+
     .highlight {
-      box-shadow: 0 0 10px 3px #00ff00;
+      box-shadow: 0 0 20px 5px rgba(var(--tier-color-r), var(--tier-color-g), var(--tier-color-b), 1);
+      animation: pulse 1.5s infinite;
     }
-    
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
     .dim {
-      opacity: 0.3;
+      opacity: 0.2;
+      filter: grayscale(100%);
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --tier-header-size: 60px;
+        --hexagon-size: 70px;
+      }
+      
+      .tier {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+      }
+      
+      .tier-header {
+        margin: 0 0 15px 0;
+      }
     }
   </style>
 </head>
 <body>
   <div class="tierlist-container">
-    <!-- Search Field -->  
     <div class="search-container">
       <input type="text" id="searchInput" placeholder="Search champion..." />
     </div>
@@ -182,9 +284,8 @@
           <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Alistar.png" alt="Alistar">
         </li>
         <li data-name="Aphelios">
-            <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Aphelios.png" alt="Aphelios">
-          </li>
-        <!-- Add more hexagons as needed with appropriate data-name attributes -->
+          <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Aphelios.png" alt="Aphelios">
+        </li>
       </ul>
     </div>
     
@@ -228,8 +329,8 @@
       </ul>
     </div>
   </div>
+  
   <script>
-    // Search functionality: Highlight matching hexagons and grey out non-matching ones.
     const searchInput = document.getElementById('searchInput');
     searchInput.addEventListener('input', function() {
       const filter = searchInput.value.toLowerCase();
