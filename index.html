@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tierlist</title>
   <style>
+    /* Remove scrolling */
+    html, body {
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
     /* CSS Variables for easy theme adjustments */
     :root {
       --body-bg: #ADD8E6;
@@ -24,7 +33,6 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
       flex-direction: column;
     }
 
@@ -129,10 +137,8 @@
         <li>
           <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Alistar.png" alt="Alistar">
         </li>
-        <!-- Add more hexagons as needed -->
       </ul>
     </div>
-
     <!-- Tier A -->
     <div class="tier" id="tier-a">
       <div class="tier-header">A</div>
@@ -142,7 +148,6 @@
         </li>
       </ul>
     </div>
-
     <!-- Tier B -->
     <div class="tier" id="tier-b">
       <div class="tier-header">B</div>
@@ -152,7 +157,6 @@
         </li>
       </ul>
     </div>
-
     <!-- Tier C -->
     <div class="tier" id="tier-c">
       <div class="tier-header">C</div>
@@ -162,7 +166,6 @@
         </li>
       </ul>
     </div>
-
     <!-- Tier D -->
     <div class="tier" id="tier-d">
       <div class="tier-header">D</div>
