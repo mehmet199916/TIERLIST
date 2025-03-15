@@ -1,230 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tierlist</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #ADD8E6; /* Light Blue */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            flex-direction: column;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tierlist</title>
+  <style>
+    /* CSS Variables for easy theme adjustments */
+    :root {
+      --body-bg: #ADD8E6;
+      --tier-border: 5px solid black;
+      --tier-border-radius: 10px;
+      --tier-header-bg: #000;
+      --tier-header-color: yellow;
+      --tier-header-size: 60px;
+      --tier-header-font-size: 24px;
+      --hexagon-border: 3px solid black;
+    }
 
-        .tierlist-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: 1200px;
-            padding: 20px;
-        }
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: var(--body-bg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+    }
 
-        .tier {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            margin: 10px 0; /* Verkleinerter Abstand zwischen den Tiers */
-            width: 100%;
-            max-width: 1000px;
-            border: 5px solid black; /* Increased border thickness */
-            border-radius: 10px;
-            background: linear-gradient(45deg, rgba(255, 204, 0, 0.7), rgba(255, 69, 0, 0.7)); /* Gradient background */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 10px;
-        }
+    .tierlist-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      padding: 20px;
+      gap: 20px;
+    }
 
-        /* Gradient backgrounds for each tier */
-        #tier-s {
-            background: linear-gradient(45deg, #FFD700, #FF8C00); /* Gold to Dark Orange */
-        }
-        #tier-a {
-            background: linear-gradient(45deg, #4169E1, #1E90FF); /* Royal Blue to Dodger Blue */
-        }
-        #tier-b {
-            background: linear-gradient(45deg, #FFA500, #FF6347); /* Orange to Tomato */
-        }
-        #tier-c {
-            background: linear-gradient(45deg, #F08080, #FF4500); /* Light Coral to Orange Red */
-        }
-        #tier-d {
-            background: linear-gradient(45deg, #8B0000, #DC143C); /* Dark Red to Crimson */
-        }
+    .tier {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 1000px;
+      border: var(--tier-border);
+      border-radius: var(--tier-border-radius);
+      padding: 10px;
+      /* Default gradient background; individual tiers override this below */
+      background: linear-gradient(135deg, #ffffff, #f5f5f5);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
 
-        .tier h2 {
-            background-color: #000000; /* Black Box */
-            color: white;
-            padding: 15px; /* Slightly bigger padding for a better look */
-            margin: 0;
-            border-radius: 10px;
-            flex-shrink: 0;
-            width: 140px;
-            text-align: center;
-            font-size: 20px; /* Slightly larger font for better readability */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
-            transition: all 0.3s ease;
-        }
+    .tier:hover {
+      transform: scale(1.01);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
 
-        .tier h2:hover {
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25); /* Darker shadow on hover */
-            transform: scale(1.05); /* Subtle scale effect */
-        }
+    /* Individual tier gradient backgrounds */
+    #tier-s { background: linear-gradient(45deg, #FFD700, #FF8C00); }
+    #tier-a { background: linear-gradient(45deg, #4169E1, #1E90FF); }
+    #tier-b { background: linear-gradient(45deg, #FFA500, #FF6347); }
+    #tier-c { background: linear-gradient(45deg, #F08080, #FF4500); }
+    #tier-d { background: linear-gradient(45deg, #8B0000, #DC143C); }
 
-        .tier h2 img {
-            width: 50px;
-            height: auto;
-            margin-right: 10px;
-        }
+    /* Tier Header Styling */
+    .tier-header {
+      background: var(--tier-header-bg);
+      color: var(--tier-header-color);
+      font-size: var(--tier-header-font-size);
+      font-weight: bold;
+      width: var(--tier-header-size);
+      height: var(--tier-header-size);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--tier-border-radius);
+      margin-right: 15px;
+      text-shadow: 0 0 8px var(--tier-header-color);
+      transition: transform 0.3s ease;
+    }
 
-        .tier ul {
-            list-style-type: none;
-            display: flex;
-            padding: 0;
-            margin: 0;
-            flex-wrap: wrap;
-            gap: 16px; /* Increased the gap between the hexagons */
-            margin-left: 20px; /* Shift the hexagons to the right */
-        }
+    .tier-header:hover {
+      transform: scale(1.05);
+    }
 
-        .tier li {
-            width: 80px; /* Adjust hexagon size */
-            height: 90px;
-            position: relative;
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-            background-color: gray; /* Placeholder color */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 3px solid black; /* Black border around hexagon (thicker) */
-            border-radius: 5px;
-        }
+    .tier ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-left: 20px;
+      padding: 0;
+    }
 
-        .tier li:hover {
-            transform: scale(1.1); /* Slight scale on hover */
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Shadow effect on hover */
-        }
+    .tier li {
+      width: 80px;
+      height: 90px;
+      position: relative;
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: var(--hexagon-border);
+      border-radius: 5px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-        .tier li img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+    .tier li:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
 
-        .hexagon-text {
-            position: absolute;
-            color: white;
-            font-size: 14px;
-            font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Text shadow for readability */
-            z-index: 1;
-        }
-    </style>
+    .tier li img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
 </head>
 <body>
-
-    <div class="tierlist-container">
-        <!-- Tier S -->
-        <div class="tier" id="tier-s">
-            <h2><img src="images/s.png" alt="S Tier"></h2>
-            <ul>
-                <li>
-                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Alistar.png" alt="Champion">
-                    <span class="hexagon-text">Alistar</span> <!-- Name of the champion inside the hexagon -->
-                </li>
-                <li>
-                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example.png" alt="Champion">
-                    <span class="hexagon-text">Example</span> <!-- Name of the champion inside the hexagon -->
-                </li>
-                <li>
-                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example2.png" alt="Champion">
-                    <span class="hexagon-text">Example2</span> <!-- Name of the champion inside the hexagon -->
-                </li>
-            </ul>
-        </div>
-
-        <!-- Tier A -->
-        <div class="tier" id="tier-a">
-            <h2><img src="images/a.png" alt="A Tier"></h2>
-            <ul>
-                <li>
-                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example3.png" alt="Champion">
-                    <span class="hexagon-text">Example3</span> <!-- Name of the champion inside the hexagon -->
-                </li>
-                <li>
-                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example4.png" alt="Champion">
-                    <span class="hexagon-text">Example4</span> <!-- Name of the champion inside the hexagon -->
-                </li>
-                <li>
-                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example5.png" alt="Champion">
-                    <span class="hexagon-text">Example5</span> <!-- Name of the champion inside the hexagon -->
-                </li>
-            </ul>
-        </div>
-
-        <!-- Tier B -->
-        <div class="tier" id="tier-b">
-            <h2><img src="images/b.png" alt="B Tier"></h2>
-            <ul>
-                <li>
-                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example6.png" alt="Champion">
-                    <span class="hexagon-text">Example6</span> <!-- Name of the champion inside the hexagon -->
-                </li>
-                <li>
-                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example7.png" alt="Champion">
-                    <span class="hexagon-text">Example7</span> <!-- Name of the champion inside the hexagon -->
-                </li>
-                <li>
-                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example8.png" alt="Champion">
-                    <span class="hexagon-text">Example8</span> <!-- Name of the champion inside the hexagon -->
-                </li>
-            </ul>
-        </div>
-
-        <!-- Tier C -->
-        <div class="tier" id="tier-c">
-            <h2><img src="images/c.png" alt="C Tier"></h2>
-            <ul>
-                <li>
-                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example9.png" alt="Champion">
-                    <span class="hexagon-text">Example9</span> <!-- Name of the champion inside the hexagon -->
-                </li>
-                <li>
-                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example10.png" alt="Champion">
-                    <span class="hexagon-text">Example10</span> <!-- Name of the champion inside the hexagon -->
-                </li>
-                <li>
-                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example11.png" alt="Champion">
-                    <span class="hexagon-text">Example11</span> <!-- Name of the champion inside the hexagon -->
-                </li>
-            </ul>
-        </div>
-
-        <!-- Tier D -->
-        <div class="tier" id="tier-d">
-            <h2><img src="images/d.png" alt="D Tier"></h2>
-            <ul>
-                <li>
-                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example12.png" alt="Champion">
-                    <span class="hexagon-text">Example12</span> <!-- Name of the champion inside the hexagon -->
-                </li>
-                <li>
-                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example13.png" alt="Champion">
-                    <span class="hexagon-text">Example13</span> <!-- Name of the champion inside the hexagon -->
-                </li>
-                <li>
-                    <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example14.png" alt="Champion">
-                    <span class="hexagon-text">Example14</span> <!-- Name of the champion inside the hexagon -->
-                </li>
-            </ul>
-        </div>
+  <div class="tierlist-container">
+    <!-- Tier S -->
+    <div class="tier" id="tier-s">
+      <div class="tier-header">S</div>
+      <ul>
+        <li>
+          <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Alistar.png" alt="Alistar">
+        </li>
+        <!-- Add more hexagons as needed -->
+      </ul>
     </div>
 
+    <!-- Tier A -->
+    <div class="tier" id="tier-a">
+      <div class="tier-header">A</div>
+      <ul>
+        <li>
+          <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example3.png" alt="Example3">
+        </li>
+      </ul>
+    </div>
+
+    <!-- Tier B -->
+    <div class="tier" id="tier-b">
+      <div class="tier-header">B</div>
+      <ul>
+        <li>
+          <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example6.png" alt="Example6">
+        </li>
+      </ul>
+    </div>
+
+    <!-- Tier C -->
+    <div class="tier" id="tier-c">
+      <div class="tier-header">C</div>
+      <ul>
+        <li>
+          <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example9.png" alt="Example9">
+        </li>
+      </ul>
+    </div>
+
+    <!-- Tier D -->
+    <div class="tier" id="tier-d">
+      <div class="tier-header">D</div>
+      <ul>
+        <li>
+          <img src="https://raw.githubusercontent.com/mehmet199916/TIERLIST/main/Champion/Example12.png" alt="Example12">
+        </li>
+      </ul>
+    </div>
+  </div>
 </body>
 </html>
